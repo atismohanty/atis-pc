@@ -216,7 +216,7 @@ function showPosition(position)
 			{
 				position:pos,
 				map:mapadd,
-				icon:'gpsfixedindicator.png',
+				icon:'https://cdn.rawgit.com/atismohanty/atis-pc/fc321323/gpsfixedindicator.png',
 				animation: google.maps.Animation.DROP
 			});
 		}
