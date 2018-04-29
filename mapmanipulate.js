@@ -1,6 +1,8 @@
 var data = [];
 var markerContent = [];
 var fileAdd ;
+var currPosMarker ;
+var mapadd;
 
 if(navigator.onLine==false)
 {
@@ -46,8 +48,8 @@ for (var i=0 ; i< arr.length-1 ; i++)
 
 	var mapObj = document.getElementById("mapviewer");
 	var latlng = new google.maps.LatLng(data[0].lat, data[0].lng);
-	var mapOpt = {center:latlng, zoom:10};
-	var mapadd = new google.maps.Map( mapObj, mapOpt);
+	var mapOpt = {center:latlng, zoom:10, mapTypeControl:false};
+	mapadd = new google.maps.Map( mapObj, mapOpt);
 	var filePath = fileAdd;
 	var iconImg=[];
 	
@@ -143,6 +145,9 @@ for (var i=0 ; i< arr.length-1 ; i++)
 
 	}
 	
+	geoCodeLocation();
+	//setInterval(geoCodeLocation, 5000);
+	
 
 }
 function navigateCustomer(custid)
@@ -156,4 +161,71 @@ function navigateCustomer(custid)
 function NavCust(id)
 {
 	setTimeout(navigateCustomer(id), 2000);
+}
+
+function geoCodeLocation()
+{
+	if(navigator.geolocation)
+	{
+		function geo_success(position) 
+		{
+  			var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  			if (!currPosMarker) 
+				{
+					currPosMarker = new google.maps.Marker(
+					{
+						position:pos,
+						map:mapadd,
+						icon:'gpsfixedindicator.png',
+						animation: google.maps.Animation.DROP
+					});
+				}
+			else
+			{
+				currPosMarker.setPosition = pos;
+			}
+			mapadd.setCenter(pos);
+		}
+
+		function geo_error() {
+		  alert("Sorry, no position available.");
+		}
+
+		var geo_options = {
+		  enableHighAccuracy: true, 
+		  maximumAge        : 30000, 
+		  timeout           : 27000
+		};
+
+	navigator.geolocation.getCurrentPosition(geo_success, geo_error, geo_options);
+
+	}
+	else
+	{
+		alert("Geocodoing is not enabled for this browser. Please try a different browser.");
+	}
+}
+function showPosition(position)
+{
+	
+	var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	/*
+	if (!currPosMarker) 
+		{
+			currPosMarker = new google.maps.Marker(
+			{
+				position:pos,
+				map:mapadd,
+				icon:'gpsfixedindicator.png',
+				animation: google.maps.Animation.DROP
+			});
+		}
+		else
+		{
+			currPosMarker.setPosition = pos;
+		}
+	
+	mapadd.setCenter(pos);
+	*/
+	console.log(pos);
 }
