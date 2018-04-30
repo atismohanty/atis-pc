@@ -145,8 +145,8 @@ for (var i=0 ; i< arr.length-1 ; i++)
 
 	}
 	
-	geoCodeLocation();
-	//setInterval(geoCodeLocation, 5000);
+	//geoCodeLocation();
+	setTimeout(geoCodeLocation, 5000);
 	
 
 }
@@ -167,16 +167,22 @@ function geoCodeLocation()
 {
 	if(navigator.geolocation)
 	{
+		alert("Geolocation supported");
 		function geo_success(position) 
 		{
+			alert("Getting Current Position");
+
   			var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+  			alert("Position Obtained");
+
   			if (!currPosMarker) 
 				{
 					currPosMarker = new google.maps.Marker(
 					{
 						position:pos,
 						map:mapadd,
-						icon:'gpsfixedindicator.png',
+						icon:'https://cdn.rawgit.com/atismohanty/atis-pc/fc321323/gpsfixedindicator.png',
 						animation: google.maps.Animation.DROP
 					});
 				}
@@ -187,8 +193,8 @@ function geoCodeLocation()
 			mapadd.setCenter(pos);
 		}
 
-		function geo_error() {
-		  alert("Sorry, no position available.");
+		function geo_error(err) {
+		  alert("Sorry, no position available." + err.code + "  " + err.message);
 		}
 
 		var geo_options = {
@@ -196,7 +202,7 @@ function geoCodeLocation()
 		  maximumAge        : 30000, 
 		  timeout           : 27000
 		};
-
+	alert("Getting Current Position from map");
 	navigator.geolocation.getCurrentPosition(geo_success, geo_error, geo_options);
 
 	}
@@ -216,7 +222,7 @@ function showPosition(position)
 			{
 				position:pos,
 				map:mapadd,
-				icon:'https://cdn.rawgit.com/atismohanty/atis-pc/fc321323/gpsfixedindicator.png',
+				icon:'gpsfixedindicator.png',
 				animation: google.maps.Animation.DROP
 			});
 		}
