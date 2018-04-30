@@ -89,7 +89,7 @@ for (var i=0 ; i< arr.length-1 ; i++)
 	}
 	else if(data[i].custtype=="Estimate")
 	{
-		iconImg[i] = filePath + "estimate.png";
+		iconImg[i] = filePath + "Estimate.png";
 	}
 	else
 	{
