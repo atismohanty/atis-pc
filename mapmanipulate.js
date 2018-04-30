@@ -85,7 +85,7 @@ for (var i=0 ; i< arr.length-1 ; i++)
 	}
 	else if(data[i].custtype=="Successful Delivery")
 	{
-		iconImg[i] = filePath + "success.png";
+		iconImg[i] = filePath + "Success.png";
 	}
 	else if(data[i].custtype=="Estimate")
 	{
