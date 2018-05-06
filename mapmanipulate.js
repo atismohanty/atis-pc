@@ -50,6 +50,7 @@ for (var i=0 ; i< arr.length-1 ; i++)
 	var latlng = new google.maps.LatLng(data[0].lat, data[0].lng);
 	var mapOpt = {center:latlng, zoom:10, mapTypeControl:false};
 	mapadd = new google.maps.Map( mapObj, mapOpt);
+	var GeoMarker = new GeolocationMarker(mapadd);  // Added as imported code from another source
 	var filePath = fileAdd;
 	var iconImg=[];
 	
@@ -89,7 +90,11 @@ for (var i=0 ; i< arr.length-1 ; i++)
 	}
 	else if(data[i].custtype=="Estimate")
 	{
-		iconImg[i] = filePath + "Estimate.png";
+		iconImg[i] = filePath + "estimate.png";
+	}
+	else if(data[i].custtype=="Current User")
+	{
+		iconImg[i] = filePath + "gpsfixedindicator.png";
 	}
 	else
 	{
@@ -146,7 +151,7 @@ for (var i=0 ; i< arr.length-1 ; i++)
 	}
 	
 	//geoCodeLocation();
-	setTimeout(geoCodeLocation, 5000);
+	//setTimeout(geoCodeLocation, 5000);
 	
 
 }
@@ -198,7 +203,7 @@ function geoCodeLocation()
 		}
 
 		var geo_options = {
-		  enableHighAccuracy: true, 
+		  enableHighAccuracy: false, 
 		  maximumAge        : 30000, 
 		  timeout           : 27000
 		};
